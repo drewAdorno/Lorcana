@@ -1,13 +1,17 @@
 [phases.setup]
-nixpkgs = ["python311", "pip"]  # Use Python 3.11 for compatibility with Django 5.x
+nixpkgs = ["python311", "pip"]
 
 [phases.build]
 commands = [
-  "pip install -r requirements.txt",  # Install dependencies, including Gunicorn
-  "python manage.py collectstatic --noinput"  # Collect static files if needed
+  "python -m venv venv",  # Create a virtual environment
+  ". venv/bin/activate",  # Activate the virtual environment
+  "pip install --upgrade pip",  # Upgrade pip
+  "pip install -r requirements.txt",  # Install all dependencies
+  "python manage.py collectstatic --noinput"  # Collect static files (if necessary)
 ]
 
 [phases.start]
 commands = [
-  "gunicorn lorcana.wsgi:application --bind 0.0.0.0:$PORT"  # Start the app with Gunicorn
+  ". venv/bin/activate",  # Ensure virtual environment is activated
+  "gunicorn lorcana.wsgi:application --bind 0.0.0.0:$PORT"  # Start app with Gunicorn
 ]
