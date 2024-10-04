@@ -1,0 +1,104 @@
+{% extends 'api/base.html' %}
+{% load static %}
+{% block title %}All Cards{% endblock %}
+
+{% block content %}
+<h2>All Lorcana Cards</h2>
+
+<!-- Filters Container -->
+<div class="filters-container">
+    <div>
+        <label for="sort_by">Sort by:</label>
+        <select id="sort_by">
+            <option value="name">Name</option>
+            <option value="cost">Ink</option>
+            <option value="lore">Lore</option>
+            <option value="strength">Strength</option>
+            <option value="willpower">Willpower</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="rarity_filter">Filter by Rarity:</label>
+        <select id="rarity_filter">
+            <option value="all">All</option>
+            <option value="Common">Common</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Rare">Rare</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="inkable_filter">Filter by Inkable:</label>
+        <select id="inkable_filter">
+            <option value="all">All</option>
+            <option value="true">Inkable</option>
+            <option value="false">Non-Inkable</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="card_type_filter">Filter by Card Type:</label>
+        <select id="card_type_filter">
+            <option value="all">All</option>
+            <option value="Character">Character</option>
+            <option value="Item">Item</option>
+            <option value="Action">Action</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="color_filter">Filter by Color:</label>
+        <select id="color_filter">
+            <option value="all">All</option>
+            <option value="Amber">Amber</option>
+            <option value="Sapphire">Sapphire</option>
+            <option value="Emerald">Emerald</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Steel">Steel</option>
+            <option value="Amethyst">Amethyst</option>
+        </select>
+    </div>
+</div>
+
+<!-- Card grid displaying paginated cards -->
+<div id="card-container" class="card-grid">
+    {% for card in page_obj %}
+        <div class="card-item" 
+            data-name="{{ card.name }}" 
+            data-cost="{{ card.cost }}" 
+            data-rarity="{{ card.rarity }}" 
+            data-inkable="{{ card.inkable }}" 
+            data-card-type="{{ card.card_type }}" 
+            data-color="{{ card.color }}">
+            {% if card.image_url %}
+                <img src="{{ card.image_url }}" alt="{{ card.name }}" class="card-image">
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'cards.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+<div id="card-container" class="card-grid">
+    {% for card in page_obj %}
+        <div class="card-item" 
+            data-name="{{ card.name }}" 
+            data-cost="{{ card.cost }}" 
+            data-rarity="{{ card.rarity }}" 
+            data-inkable="{{ card.inkable }}">
+            {% if card.image_url %}
+                <img src="{{ card.image_url }}" alt="{{ card.name }}" class="card-image">
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lorcana Deck Builder{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">  <!-- Optional CSS -->
+</head>
+<body>
+    <header>
+        <h1>Lorcana Deck Builder</h1>
+        {% comment %} <nav>
+            <ul>
+                <li><a href="{% url 'card_list' %}">Card List</a></li>
+                <li><a href="{% url 'create_deck' %}">Create Deck</a></li>
+                {% if deck %}
+                    <li><a href="{% url 'view_deck' deck.id %}">View Current Deck</a></li>
+                {% endif %}
+            </ul>
+        </nav> {% endcomment %}
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Content specific to each page will go here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Lorcana Deck Builder</p>
+    </footer>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

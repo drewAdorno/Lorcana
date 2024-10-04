@@ -1,0 +1,11 @@
+{% extends 'api/base.html' %}
+
+{% block title %}Create Deck{% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label for="deck_name">Deck Name:</label>
+    <input type="text" id="deck_name" name="deck_name" required>
+    <button type="submit">Create Deck</button>
+</form>
+{% endblock %}

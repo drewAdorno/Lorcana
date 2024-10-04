@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}View Deck{% endblock %}
+
+{% block content %}
+<h2>{{ deck.name }} - {{ deck.card_count }} cards</h2>
+
+<ul>
+    {% for deck_card in deck_cards %}
+        <li>{{ deck_card.card.name }} x{{ deck_card.quantity }} 
+            (Cost: {{ deck_card.card.cost }}, Inkable: {{ deck_card.card.inkable }})
+            <a href="{% url 'remove_from_deck' deck.id deck_card.card.id %}">Remove</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_to_deck' deck.id %}">Add More Cards</a>
+{% endblock %}
