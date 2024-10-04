@@ -1,6 +1,10 @@
 {
     "build": {
-        "builder": "NIXPACKS"
+        "builder": "NIXPACKS",
+        "commands": [
+            "pip install -r requirements.txt",
+            "python manage.py collectstatic --noinput"
+        ]
     },
     "start": {
         "command": "gunicorn lorcana.wsgi:application --bind 0.0.0.0:$PORT"
